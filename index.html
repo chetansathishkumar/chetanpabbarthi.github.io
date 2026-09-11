@@ -4,7 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Chetan — Data & Business Analyst</title>
-<meta name="description" content="Portfolio of Chetan, a Business & Data Analyst working with SQL, Power BI, Python and Excel." />
+<meta name="description" content="Portfolio of Chetan, a Business & Data Analyst working with Python, Excel, Power BI, SQL and PowerPoint." />
+
+<!-- Set theme before first paint, so there's no flash of the wrong mode -->
+<script>
+  (function () {
+    var stored = localStorage.getItem("theme");
+    var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
 
 <!-- Fonts: Newsreader (serif display) + Inter (body/UI) + IBM Plex Mono (data figures) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,17 +27,30 @@
 <!-- Mobile top bar -->
 <header class="mobile-bar">
   <span class="mobile-bar__mark">CH</span>
-  <button class="mobile-bar__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="mobile-bar__right">
+    <button class="theme-toggle" id="themeToggleMobile" aria-label="Switch to dark mode" aria-pressed="false">
+      <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+    </button>
+    <button class="mobile-bar__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
+
+<!-- Cursor spotlight (hero only, disabled on touch / reduced motion via JS) -->
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
 
 <div class="frame">
 
   <!-- Left rail -->
   <aside class="rail" id="rail">
     <div class="rail__top">
-      <span class="rail__mark">CH</span>
+      <div class="rail__top-row">
+        <span class="rail__mark">CH</span>
+        <button class="theme-toggle" id="themeToggleDesktop" aria-label="Switch to dark mode" aria-pressed="false">
+          <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
       <h1 class="rail__name">Chetan<span class="rail__cursor">.</span></h1>
       <p class="rail__role">Business &amp; Data<br>Analyst</p>
     </div>
@@ -55,38 +77,72 @@
 
     <!-- HOME / HERO -->
     <section id="home" class="page page--hero">
-      <p class="page__kicker">Portfolio — updated 2026</p>
-      <h2 class="hero__headline">
-        I turn messy<br>
-        data into decisions<br>
-        <em>worth acting on.</em>
-      </h2>
-      <p class="hero__sub">
-        Business Analyst with a year of hands-on work automating ServiceNow workflows,
-        mining 40,000+ support tickets for patterns, and building the SQL, Power BI and
-        Python projects on this page from the ground up.
-      </p>
+      <div class="hero__grid">
+        <div class="hero__text">
+          <p class="page__kicker">Portfolio — updated 2026</p>
+          <h2 class="hero__headline">
+            <span class="scramble-line" data-text="I turn messy"></span><br>
+            <span class="scramble-line" data-text="data into decisions"></span><br>
+            <span class="scramble-line scramble-line--em" data-text="worth acting on."></span>
+          </h2>
 
-      <div class="hero__actions">
-        <a href="#projects" class="btn btn--primary">See the work</a>
-        <a href="Resume.pdf" class="btn btn--ghost" target="_blank" rel="noopener">Download resume</a>
+          <svg class="squiggle" width="180" height="18" viewBox="0 0 180 18" fill="none" aria-hidden="true">
+            <path id="squigglePath" d="M2 12C15 2 29 2 42 12C55 22 69 22 82 12C95 2 109 2 122 12C135 22 149 22 162 12C168 9 172 8 178 6" stroke="#FF2E92" stroke-width="3.5" stroke-linecap="round"/>
+          </svg>
+
+          <p class="hero__sub">
+            Business Analyst with a year of hands-on work automating ServiceNow workflows,
+            mining tens of thousands of support tickets for patterns, and building the
+            Python, Excel, Power BI, SQL and PowerPoint projects on this page from the
+            ground up.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#projects" class="btn btn--primary magnetic">See the work</a>
+            <a href="Resume.pdf" class="btn btn--ghost magnetic" target="_blank" rel="noopener">Download resume</a>
+          </div>
+
+          <dl class="stat-row">
+            <div class="stat reveal">
+              <dt>Analytics projects shipped</dt>
+              <dd><span class="count-up" data-count-target="9" data-pad="2">00</span></dd>
+            </div>
+            <div class="stat reveal">
+              <dt>Tools in daily use</dt>
+              <dd><span class="count-up" data-count-target="5" data-pad="2">00</span></dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="hero__photo reveal">
+          <div class="photo-frame">
+            <img src="photo.jpg" alt="Photo of Chetan" id="profilePhoto"
+                 onerror="this.style.display='none'; document.getElementById('photoFallback').style.display='flex';">
+            <div class="photo-frame__fallback" id="photoFallback">CH</div>
+          </div>
+          <span class="photo-badge">
+            <span class="photo-badge__dot"></span>
+            Open to work
+          </span>
+        </div>
       </div>
-
-      <dl class="stat-row">
-        <div class="stat">
-          <dt>Tickets analyzed</dt>
-          <dd>40,000<span class="stat__plus">+</span></dd>
-        </div>
-        <div class="stat">
-          <dt>Analytics projects shipped</dt>
-          <dd>09</dd>
-        </div>
-        <div class="stat">
-          <dt>Core toolset</dt>
-          <dd>SQL · Py · BI</dd>
-        </div>
-      </dl>
     </section>
+
+    <!-- TOOL TICKER -->
+    <div class="ticker" aria-label="Core tools">
+      <div class="ticker__track">
+        <span>Python</span><span class="ticker__dot">✦</span>
+        <span>Excel</span><span class="ticker__dot">✦</span>
+        <span>Power BI</span><span class="ticker__dot">✦</span>
+        <span>SQL</span><span class="ticker__dot">✦</span>
+        <span>PowerPoint</span><span class="ticker__dot">✦</span>
+        <span>Python</span><span class="ticker__dot">✦</span>
+        <span>Excel</span><span class="ticker__dot">✦</span>
+        <span>Power BI</span><span class="ticker__dot">✦</span>
+        <span>SQL</span><span class="ticker__dot">✦</span>
+        <span>PowerPoint</span><span class="ticker__dot">✦</span>
+      </div>
+    </div>
 
     <!-- ABOUT -->
     <section id="about" class="page">
@@ -95,7 +151,7 @@
 
       <div class="about__grid">
         <div class="about__copy">
-          <p>
+          <p class="reveal">
             I started with zero technical background and worked backward from one goal —
             becoming job-ready as a data &amp; business analyst. A year at
             <strong>CubeSimple</strong> in Chennai gave me the first real test of that:
@@ -103,13 +159,13 @@
             recurring patterns, drafting statements of work, and presenting findings to
             people who needed answers, not spreadsheets.
           </p>
-          <p>
+          <p class="reveal">
             Since then I've been building outward from that base — SQL, Power BI, Python
             and Excel projects modeled on real business problems: delivery operations,
             insurance claims, digital marketing spend, B2B lead pacing. Each one is on this
             page, not a course certificate but a working file.
           </p>
-          <p>
+          <p class="reveal">
             I hold a <strong>B.Tech in AI &amp; Data Science</strong> from Saveetha
             Engineering College, and I'm currently looking for Data Analyst / Business
             Analyst roles where I can keep doing this at a larger scale.
@@ -117,15 +173,15 @@
         </div>
 
         <div class="about__facts">
-          <div class="fact">
+          <div class="fact reveal">
             <p class="fact__label">Currently</p>
             <p class="fact__value">Open to Data / Business Analyst roles</p>
           </div>
-          <div class="fact">
+          <div class="fact reveal">
             <p class="fact__label">Education</p>
             <p class="fact__value">B.Tech, AI &amp; Data Science — Saveetha Engineering College</p>
           </div>
-          <div class="fact">
+          <div class="fact reveal">
             <p class="fact__label">Experience</p>
             <p class="fact__value">Business Analyst, CubeSimple — Chennai</p>
           </div>
@@ -148,27 +204,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr class="reveal">
             <td>Query &amp; logic</td>
             <td>SQL, DAX, Python</td>
             <td><span class="dots" data-level="4"></span></td>
           </tr>
-          <tr>
-            <td>BI &amp; dashboards</td>
-            <td>Power BI, Excel, Tableau</td>
+          <tr class="reveal">
+            <td>BI &amp; delivery</td>
+            <td>Power BI, Excel, PowerPoint, Tableau</td>
             <td><span class="dots" data-level="5"></span></td>
           </tr>
-          <tr>
+          <tr class="reveal">
             <td>Data prep</td>
             <td>Power Query, Pandas, NumPy</td>
             <td><span class="dots" data-level="4"></span></td>
           </tr>
-          <tr>
+          <tr class="reveal">
             <td>Analysis &amp; stats</td>
             <td>statsmodels, hypothesis testing, regression</td>
             <td><span class="dots" data-level="3"></span></td>
           </tr>
-          <tr>
+          <tr class="reveal">
             <td>Workflow &amp; platform</td>
             <td>ServiceNow, Git / GitHub, Jupyter</td>
             <td><span class="dots" data-level="4"></span></td>
@@ -184,145 +240,127 @@
       <p class="page__lede">Nine builds, logged in the order I built them.</p>
 
       <ol class="log">
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">01</span>
           <div class="log__body">
             <h4>GLITCH — D2C Streetwear Dashboard</h4>
             <p>Power BI performance dashboard for a fictional streetwear brand, built around a dark Y2K visual language.</p>
           </div>
           <span class="log__tag">Power BI</span>
-          <a class="log__link" href="https://github.com/your-github/glitch" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/glitch" target="_blank" rel="noopener">View →</a>
         </li>
 
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">02</span>
           <div class="log__body">
             <h4>DASHR — Delivery Operations Dashboard</h4>
             <p>Food-delivery operations dashboard with DAX time-intelligence measures for on-time rate and delay trends.</p>
           </div>
           <span class="log__tag">Power BI · DAX</span>
-          <a class="log__link" href="https://github.com/your-github/dashr" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/dashr" target="_blank" rel="noopener">View →</a>
         </li>
 
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">03</span>
           <div class="log__body">
             <h4>Healthcare Analytics Dashboard</h4>
             <p>Power BI dashboard tracking patient and operational metrics across a healthcare provider network.</p>
           </div>
           <span class="log__tag">Power BI</span>
-          <a class="log__link" href="https://github.com/your-github/healthcare-analytics" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/healthcare-analytics" target="_blank" rel="noopener">View →</a>
         </li>
 
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">04</span>
           <div class="log__body">
             <h4>Digital Marketing Analytics Dashboard</h4>
             <p>Campaign performance dashboard with weighted cost-per-lead and budget utilization across channels.</p>
           </div>
           <span class="log__tag">Power BI</span>
-          <a class="log__link" href="https://github.com/your-github/digital-marketing-analytics" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/digital-marketing-analytics" target="_blank" rel="noopener">View →</a>
         </li>
 
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">05</span>
           <div class="log__body">
             <h4>B2B Lead-Gen Pacing Dashboard</h4>
             <p>Lead pacing tracker built on unpivoted campaign data, reshaped in Power Query before modeling.</p>
           </div>
           <span class="log__tag">Power BI · Power Query</span>
-          <a class="log__link" href="https://github.com/your-github/b2b-leadgen-pacing" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/b2b-leadgen-pacing" target="_blank" rel="noopener">View →</a>
         </li>
 
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">06</span>
           <div class="log__body">
             <h4>ZoomCharts Power BI Challenge</h4>
             <p>Five-page B2B sales report built on a star-schema model for the public ZoomCharts submission challenge.</p>
           </div>
           <span class="log__tag">Power BI</span>
-          <a class="log__link" href="https://github.com/your-github/zoomcharts-challenge" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/zoomcharts-challenge" target="_blank" rel="noopener">View →</a>
         </li>
 
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">07</span>
           <div class="log__body">
             <h4>Support Ticket Analytics</h4>
             <p>SQL analysis of a synthetic 14,000-ticket helpdesk dataset in SQLite — the same domain as my CubeSimple work.</p>
           </div>
           <span class="log__tag">SQL · SQLite</span>
-          <a class="log__link" href="https://github.com/your-github/support-ticket-analytics" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/support-ticket-analytics" target="_blank" rel="noopener">View →</a>
         </li>
 
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">08</span>
           <div class="log__body">
             <h4>Delivery Time Prediction</h4>
             <p>OLS regression model in Python/statsmodels recovering true delivery-time coefficients at R² = 0.956.</p>
           </div>
           <span class="log__tag">Python · statsmodels</span>
-          <a class="log__link" href="https://github.com/your-github/delivery-time-prediction" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/delivery-time-prediction" target="_blank" rel="noopener">View →</a>
         </li>
 
-        <li class="log__row">
+        <li class="log__row reveal">
           <span class="log__no">09</span>
           <div class="log__body">
             <h4>Tech Layoffs Dashboard</h4>
             <p>Interactive Excel dashboard tracking tech-industry layoffs by company, region and time period.</p>
           </div>
           <span class="log__tag">Excel</span>
-          <a class="log__link" href="https://github.com/your-github/tech-layoffs-dashboard" target="_blank" rel="noopener">View →</a>
+          <a class="log__link" href="https://github.com/chetansathishkumar/tech-layoffs-dashboard" target="_blank" rel="noopener">View →</a>
         </li>
       </ol>
     </section>
 
     <!-- CONTACT -->
-<section id="contact" class="page page--contact">
-  <p class="page__index">04</p>
-  <h3 class="page__title">Contact</h3>
-  <p class="page__lede">
-    Open to Data Analyst and Business Analyst roles — reach out directly.
-  </p>
+    <section id="contact" class="page page--contact">
+      <p class="page__index">04</p>
+      <h3 class="page__title">Contact</h3>
+      <p class="page__lede">Open to Data Analyst and Business Analyst roles — reach out directly.</p>
 
-  <div class="contact__grid">
+      <div class="contact__grid">
+        <a class="contact__item reveal" href="mailto:chetanpabbarthi@gmail.com">
+          <span class="contact__label">Email</span>
+          <span class="contact__value">chetanpabbarthi@gmail.com</span>
+        </a>
+        <a class="contact__item reveal" href="tel:+918309763746">
+          <span class="contact__label">Phone</span>
+          <span class="contact__value">+91 8309763746</span>
+        </a>
+        <a class="contact__item reveal" href="https://www.linkedin.com/in/chetanpabbarthi/" target="_blank" rel="noopener">
+          <span class="contact__label">LinkedIn</span>
+          <span class="contact__value">linkedin.com/in/chetanpabbarthi</span>
+        </a>
+        <a class="contact__item reveal" href="https://github.com/chetansathishkumar" target="_blank" rel="noopener">
+          <span class="contact__label">GitHub</span>
+          <span class="contact__value">github.com/chetansathishkumar</span>
+        </a>
+      </div>
 
-    <a class="contact__item" href="mailto:chetanpabbarthi@gmail.com">
-      <span class="contact__label">Email</span>
-      <span class="contact__value">chetanpabbarthi@gmail.com</span>
-    </a>
-
-    <a class="contact__item" href="tel:+918309763746">
-      <span class="contact__label">Phone</span>
-      <span class="contact__value">+91 8309763746</span>
-    </a>
-
-    <a
-      class="contact__item"
-      href="https://www.linkedin.com/in/chetanpabbarthi/"
-      target="_blank"
-      rel="noopener"
-    >
-      <span class="contact__label">LinkedIn</span>
-      <span class="contact__value">linkedin.com/in/chetanpabbarthi</span>
-    </a>
-
-    <a
-      class="contact__item"
-      href="https://github.com/chetansathishkumar"
-      target="_blank"
-      rel="noopener"
-    >
-      <span class="contact__label">GitHub</span>
-      <span class="contact__value">github.com/chetansathishkumar</span>
-    </a>
-
-  </div>
-
-  <footer class="sheet__footer">
-    <p>Built by Chetan · <span id="year"></span></p>
-  </footer>
-</section>
-
+      <footer class="sheet__footer">
+        <p>Built by Chetan · <span id="year"></span></p>
+      </footer>
+    </section>
 
   </main>
 </div>
