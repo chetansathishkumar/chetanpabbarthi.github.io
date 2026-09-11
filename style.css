@@ -618,6 +618,7 @@ table { border-collapse: collapse; width: 100%; }
 /* Text lines animate in via JS (scramble effect); this is the settled state */
 .scramble-line {
   display: inline-block;
+  white-space: nowrap;
 }
 .scramble-line--em {
   font-style: italic;
@@ -728,11 +729,7 @@ table { border-collapse: collapse; width: 100%; }
   overflow: hidden;
   border-top: var(--ink-border) solid var(--ink);
   border-bottom: var(--ink-border) solid var(--ink);
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--pop-blue) 0 26px,
-    var(--pop-pink) 26px 52px
-  );
+  background: var(--ink);
   padding: 12px 0;
 }
 .ticker__track {
@@ -741,16 +738,14 @@ table { border-collapse: collapse; width: 100%; }
   gap: 22px;
   padding-left: 64px;
   font-family: var(--font-mono);
-  font-weight: 700;
+  font-weight: 500;
   font-size: 13px;
   letter-spacing: 0.03em;
-  color: #fff;
-  -webkit-text-stroke: 0.5px var(--on-accent);
+  color: var(--paper);
   animation: ticker-scroll 22s linear infinite;
 }
 .ticker__dot {
   color: var(--pop-yellow);
-  -webkit-text-stroke: 0;
 }
 @keyframes ticker-scroll {
   to { transform: translateX(-50%); }
