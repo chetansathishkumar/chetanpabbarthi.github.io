@@ -1,6 +1,31 @@
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // ---------------------------------------------------------------
+// Theme toggle (light/dark), persisted in localStorage
+// ---------------------------------------------------------------
+function applyThemeUI(theme) {
+  document.querySelectorAll(".theme-toggle").forEach((btn) => {
+    const icon = btn.querySelector(".theme-toggle__icon");
+    if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
+    btn.setAttribute("aria-pressed", String(theme === "dark"));
+    btn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+  });
+}
+
+// Reflect whatever the inline head script already set on <html>
+applyThemeUI(document.documentElement.getAttribute("data-theme") || "light");
+
+document.querySelectorAll(".theme-toggle").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme") || "light";
+    const next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    applyThemeUI(next);
+  });
+});
+
+// ---------------------------------------------------------------
 // Footer year
 // ---------------------------------------------------------------
 document.getElementById("year").textContent = new Date().getFullYear();
