@@ -26,6 +26,20 @@
   --ink-border: 2.5px;
   --pop-shadow: 6px 6px 0 var(--ink);
   --pop-shadow-sm: 4px 4px 0 var(--ink);
+  --on-accent: #14141A;
+  color-scheme: light;
+}
+
+/* Dark mode palette — same tokens, different values, everything downstream
+   (borders, shadows, text) recalculates automatically since they reference these */
+html[data-theme="dark"] {
+  --paper: #131318;
+  --sheet: #1E1E27;
+  --ink: #F4F1E8;
+  --ink-soft: #B2AFC0;
+  --line: #33323F;
+  --line-strong: #F4F1E8;
+  color-scheme: dark;
 }
 
 
@@ -50,6 +64,14 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth theme switch across every panel/surface */
+.rail, .mobile-bar, .page, .skill-table, .log__row, .contact__item,
+.fact, .btn, .photo-frame img, .photo-frame__fallback, .rail__role,
+.theme-toggle, .rail__mark, .mobile-bar__mark {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -91,12 +113,18 @@ table { border-collapse: collapse; width: 100%; }
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--ink);
+  color: var(--on-accent);
   background: var(--pop-yellow);
   border: var(--ink-border) solid var(--ink);
   padding: 3px 9px;
   border-radius: 4px;
   box-shadow: var(--pop-shadow-sm);
+}
+
+.rail__top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .rail__name {
@@ -290,10 +318,10 @@ table { border-collapse: collapse; width: 100%; }
 .btn--primary:hover { background: var(--pop-pink); border-color: var(--ink); }
 .btn--ghost {
   background: var(--pop-yellow);
-  color: var(--ink);
+  color: var(--on-accent);
   border-color: var(--ink);
 }
-.btn--ghost:hover { background: #fff; color: var(--ink); }
+.btn--ghost:hover { background: var(--sheet); color: var(--ink); }
 
 .stat-row {
   display: grid;
@@ -426,7 +454,7 @@ table { border-collapse: collapse; width: 100%; }
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 12px;
-  color: var(--ink);
+  color: var(--on-accent);
 }
 
 .log__body h4 {
@@ -487,9 +515,11 @@ table { border-collapse: collapse; width: 100%; }
 }
 .contact__item:hover {
   background: var(--pop-yellow);
+  color: var(--on-accent);
   transform: translate(-2px, -2px);
   box-shadow: 7px 7px 0 var(--ink);
 }
+.contact__item:hover .contact__label { color: var(--on-accent); opacity: 0.75; }
 .contact__label {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -521,11 +551,18 @@ table { border-collapse: collapse; width: 100%; }
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 13px;
+  color: var(--on-accent);
   border: var(--ink-border) solid var(--ink);
   background: var(--pop-yellow);
   padding: 3px 8px;
   border-radius: 4px;
 }
+.mobile-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .mobile-bar__toggle {
   width: 32px;
   height: 24px;
@@ -541,6 +578,31 @@ table { border-collapse: collapse; width: 100%; }
   display: block;
   height: 1.5px;
   background: var(--ink);
+}
+
+/* ---------- Theme toggle button ---------- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 50%;
+  border: var(--ink-border) solid var(--ink);
+  background: var(--sheet);
+  box-shadow: var(--pop-shadow-sm);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+}
+.theme-toggle:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.rail__bottom .theme-toggle,
+.rail__top .theme-toggle {
+  align-self: center;
 }
 
 /* ============================================================
@@ -638,6 +700,7 @@ table { border-collapse: collapse; width: 100%; }
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: 11.5px;
+  color: var(--on-accent);
   background: var(--pop-yellow);
   box-shadow: var(--pop-shadow-sm);
   animation: wiggle 3.4s ease-in-out infinite;
@@ -682,7 +745,7 @@ table { border-collapse: collapse; width: 100%; }
   font-size: 13px;
   letter-spacing: 0.03em;
   color: #fff;
-  -webkit-text-stroke: 0.5px var(--ink);
+  -webkit-text-stroke: 0.5px var(--on-accent);
   animation: ticker-scroll 22s linear infinite;
 }
 .ticker__dot {
